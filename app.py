@@ -37,12 +37,41 @@ def consultar_id(id):
 
 #Editar
    #utilizar um request.get_json para editar e o method put que permite a ediçao e alem disso ele esta procurando o indice alem do id 
-   #update tambem é bom de utilizar 
+   #update tambem é bom de utilizar
+@app.route('/livros/<int:id>', methods=['PUT']) #put metodo para EDITAR
+def editar_livros(id): 
+    livro_editado = request.get_json()
+    for indice,N in enumerate(livros): 
+        if N.get('id') == id: 
+            livros[indice].update(livro_editado)
+            return jsonify(livros[indice])  #esse editar edita apenas de forma temporaria
+
+
+
+#CRIAR
+@app.route('/livros', methods=['POST'])
+def criar_livros():
+    novo_livro = request.get_json()
+    livros.append(novo_livro)
+    return jsonify(livros)
+
 
 #Deletar
+@app.route('/livros/<int:id>', methods=['DELETE'])
+def excluir_livro(id):
+    for indice,N in enumerate(livros):
+        if N['id'] == id:
+            del livros[indice]
+            return jsonify({"mensagem": "Livro removido com sucesso!"}) 
+            
+
+
+
+
 
  #aqui é delete mas acredito que seja a mesma estrutura que o put do editar 
 
 
-#URL DO SITE 
+#URL DO SITE e run
 app.run(port=5000, host="localhost", debug=True)
+
