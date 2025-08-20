@@ -40,6 +40,7 @@ def consultar_id(id):
    #update tambem é bom de utilizar 
 
 #Deletar
+
  #aqui é delete mas acredito que seja a mesma estrutura que o put do editar 
 
 
